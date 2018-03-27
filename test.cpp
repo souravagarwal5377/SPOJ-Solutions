@@ -14,6 +14,19 @@ int main()
     scanf("%lld",&t);
     while(t--)
     {
-        
+        ll n;
+        sfd(n);
+        ll i,a[n];
+        for(i=0;i<n;i++)
+            sfd(a[i]);
+        ll temp,me=0,mi=0,ans=0;
+        for(i=0;i<n;i++)
+        {
+            temp=mi;
+            mi=me+a[i];
+            me=max(temp,me);
+            ans=max(mi,me);
+        }
+        cout<<ans<<endl;
     } 
 }

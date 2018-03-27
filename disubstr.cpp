@@ -14,6 +14,13 @@ int main()
     scanf("%lld",&t);
     while(t--)
     {
-        
+		cin>>s;
+		map<string,ll> m;
+		ll i,j;
+		for(i=0;i<s.length();i++){
+			for(j=0;j<=i;j++){
+				
+			}
+		}        
     } 
 }
