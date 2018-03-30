@@ -14,6 +14,6 @@ int main()
     scanf("%lld",&t);
     while(t--)
     {
-        
+     	   
     } 
 }

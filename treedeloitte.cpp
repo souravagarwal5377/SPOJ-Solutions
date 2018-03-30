@@ -10,10 +10,13 @@ int main()
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif
-    ll n;
-    sfd(n);
-    ll i,a[n];
-    for(i=0;i<n;i++)
-    	sfd(a[i]);
-    
+    ll n,m,i;
+    sfd(n);sfd(m);
+    vector<ll> v[n+1];
+    for(i=0;i<n-1;i++){
+    	ll x,y;
+    	sfd(x);sfd(y);
+    	v[x].push_back(y);
+    	v[y].push_back(x);
+    }
 }
