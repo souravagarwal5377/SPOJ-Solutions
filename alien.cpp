@@ -21,23 +21,6 @@ inline void sfd(int &x)
     if(neg)
         x = -x;
 }*/
-ll reverse(ll n){    /*returns the reverse of number n*/
-	ll i,r=0;
-	while(n>0){
-		i=n%10;
-		r=r*10+i;
-		n/=10;
-	}
-	return r;
-}
-ll countinfactn(ll n,ll i){   /*returns the number of times a prime number*/
-	ll c=0,k=i;					/* i appears in n!*/
-	while(i<=n){
-		c=c+(n/i);
-		i=i*k;
-	}
-	return c;
-}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
@@ -46,5 +29,35 @@ int main(){
 	ll t;
 	cin>>t;
 	while(t--){
+		ll n,m;
+		sfd(n);sfd(m);
+		ll i,a[n+1],x;
+		a[0]=0;
+		//cout<<a[0]<<" ";
+		for(i=1;i<=n;i++){
+			sfd(x);
+			a[i]=a[i-1]+x;
+			//cout<<a[i]<<" ";
+		}
+		//cout<<endl;
+		ll ans=0,ap=-1;
+		for(i=1;i<=n;i++){
+			x=m+a[i-1];
+			//cout<<x<<" ";
+			ll p=upper_bound(a,a+n+1,x)-a;
+			//cout<<p<<endl;
+			if(a[p]>x)
+				p--;
+			ll c=p-i+1;
+			if(c>ans){
+				ans=c;
+				ap=a[p]-a[i-1];
+			}
+			else if(c==ans&&a[p]-a[i-1]<ap){
+				ans=c;
+				ap=a[p]-a[i-1];	
+			}
+		}
+		cout<<ap<<" "<<ans<<endl;
 	}
 }

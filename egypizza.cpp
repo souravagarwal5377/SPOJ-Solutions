@@ -11,45 +11,40 @@ int main(){
     #endif 
 	ll n;
 	sfd(n);
-	ll i,c[3]={0},ans=1;
+	ll f[3]={0},i;
 	for(i=0;i<n;i++){
-	    string s;
+		string s;
 		cin>>s;
-		if(s[0]=='1'){
-			if(s[2]=='2')
-				c[1]++;
-			else
-				c[0]++;
-		}
+		if(s[2]=='2')
+			f[1]++;
+		else if(s[0]=='1')
+			f[0]++;
 		else
-			c[2]++;
+			f[2]++;
 	}
-	ans+=c[2];
-	ll f=0;
-	if(c[0]<=c[2])
-		c[0]=0;
+	ll s=1;
+	s=s+f[2];
+	if(f[0]<=f[2])
+		f[0]=0;
 	else
-		c[0]-=c[2];
-	if(c[1]%2==0){
-		ans+=(c[1]/2);
+		f[0]=f[0]-f[2];
+	s=s+(f[1]/2);
+	if(f[1]%2==1)
+		f[1]=1;
+	else
+		f[1]=0;
+	if(f[1]==1){
+		if(f[0]>=2){
+			s=s+1;
+			f[0]-=2;
+		}
+		else{
+			s++;
+			f[0]=0;
+		}
 	}
-	else{
-		ans+=(c[1]/2)+1;
-		f=1;
-	}
-	if(c[0]<=2){
-		if(f==0)
-			ans++;
-		cout<<ans<<endl;
-		return 0;
-	}
-	else{
-		if(f==1)
-			c[0]-=2;
-		ans+=(c[0]/4);
-		if(c[0]%4!=0)
-			ans++;
-		cout<<ans<<endl;
-		return 0;
-	}
+	s=s+(f[0]/4);
+	if(f[0]%4!=0)
+		s++;
+	cout<<s<<endl;
 }
