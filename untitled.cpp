@@ -13,25 +13,27 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll t,i,j;
-	cin>>t;
-	ll dp[1008][1008]={0};
-	for(i=1;i<=1007;i++)
-		for(j=1;j<=1007;j++)
-			dp[i][j]=1;
-	for(i=1;i<=1007;i++){
-		for(j=1;j<=1007;j++){
-			if(i-2>0&&j-8>0){
-				dp[i][j]=2+dp[i-2][j-8];
-			}
-			if(i-17>0){
-				dp[i][j]=max(dp[i][j],2+dp[i-17][j+7]);
+	ll n,m;
+	sfd(n);sfd(m);
+	ll s[n],e[n],d[n],i;
+	map<ll,ll> mp;
+	vector<pair<ll,pair<ll,ll> > > v;
+	for(i=0;i<m;i++){
+		sfd(s[i]);sfd(e[i]);sfd(d[i]);
+		v.pb(make_pair(s[i],make_pair(d[i],e[i])));
+		mp[e[i]]++;
+	}
+	ll j=0;
+	sort(v.begin(),v.end());
+	vector<ll> ans;
+	j=0;
+	for(i=1;i<=n;i++){
+		if(mp[i]==1)
+			ans.pb(m+1);
+		else{
+			for(;j<n;j++){
+				
 			}
 		}
-	}
-	while(t--){
-		ll h,a;
-		cin>>h>>a;
-		cout<<dp[h][a]<<endl;
 	}
 }

@@ -67,8 +67,5 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll t;
-	cin>>t;
-	while(t--){
-	}
+	ll n,q;
 }

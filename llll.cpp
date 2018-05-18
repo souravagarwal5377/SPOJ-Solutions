@@ -4,9 +4,6 @@
 #define sfc(x) scanf("%c",&x)
 #define pf printf
 #define M 1000000007
-#define pp pair<ll,ll>
-#define pb push_back
-#define inf INT_MAX;
 using namespace std;
 /*
 inline void sfd(int &x)
@@ -25,14 +22,6 @@ inline void sfd(int &x)
     if(neg)
         x = -x;
 }*/
-ll toint(string s){
-	ll n=0,i;
-	for(i=0;i<s.length();i++){
-		n=n*10+((ll)(s[i])-48);
-	}
-	//cout<<n<<endl;
-	return n;
-}
 ll reverse(ll n){    /*returns the reverse of number n*/
 	ll i,r=0;
 	while(n>0){
@@ -70,5 +59,6 @@ int main(){
 	ll t;
 	cin>>t;
 	while(t--){
+		string 
 	}
 }

@@ -4,9 +4,6 @@
 #define sfc(x) scanf("%c",&x)
 #define pf printf
 #define M 1000000007
-#define pp pair<ll,ll>
-#define pb push_back
-#define inf INT_MAX;
 using namespace std;
 /*
 inline void sfd(int &x)
@@ -25,14 +22,6 @@ inline void sfd(int &x)
     if(neg)
         x = -x;
 }*/
-ll toint(string s){
-	ll n=0,i;
-	for(i=0;i<s.length();i++){
-		n=n*10+((ll)(s[i])-48);
-	}
-	//cout<<n<<endl;
-	return n;
-}
 ll reverse(ll n){    /*returns the reverse of number n*/
 	ll i,r=0;
 	while(n>0){
@@ -67,8 +56,43 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll t;
-	cin>>t;
-	while(t--){
+	ll n,k;
+	sfd(n);sfd(k);
+	ll i,x[n+1],a[n];
+	x[0]=0;
+	map<ll,ll> m;
+	m[0]++;
+	for(i=0;i<n;i++){
+		sfd(a[i]);
+		x[i+1]=x[i]+a[i];
+		m[x[i+1]]++;
+	}
+	ll ans=0;
+	if(k==1){
+		for(i=0;i<=n;i++){
+			ans+=m[1+x[i]];
+		}
+		cout<<ans/2<<endl;
+		return 0;
+	}
+	else if(k==-1){
+		for(i=0;i<=n;i++){
+			ans+=m[1+x[i]];
+			ans+=m[-1+x[i]];
+		}
+		cout<<ans/2<<endl;
+		return 0;
+	}
+	else{
+		ll p=1;
+		for(i=0;i<=n;i++){
+			p=1;
+			while(abs(p)<=100000000000000){
+				ans+=m[x[i]+p];
+				p=p*k;
+			}
+		}
+		cout<<ans/2<<endl;
+		return 0;
 	}
 }

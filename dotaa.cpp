@@ -70,5 +70,28 @@ int main(){
 	ll t;
 	cin>>t;
 	while(t--){
+		ll n,m,d,x,i;
+		sfd(n);sfd(m);sfd(d);
+		priority_queue <ll> pq;
+		for(i=0;i<n;i++){
+			sfd(x);
+			pq.push(x);
+		}
+		ll f=0;
+		while(!pq.empty()&&m--){
+			x=pq.top();
+			pq.pop();
+			if(x-d<=0)
+			{
+				f=1;
+				break;
+			}
+			else
+				pq.push(x-d);
+		}
+		if(f==1)
+			cout<<"NO\n";
+		else
+			cout<<"YES\n";
 	}
 }

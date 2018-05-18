@@ -3,25 +3,14 @@
 #define sfd(x) scanf("%lld",&x)
 #define sfc(x) scanf("%c",&x)
 #define pf printf
-#define M 1000000007
-#define pp pair<ll,ll>
-#define pb push_back
-#define inf INT_MAX;
 using namespace std;
-vector<set<ll> > st;
-st.resize(150000);
-void maketree(ll *a,ll n,ll l,ll u,ll p){
-	if(l==u)
-}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n;
-	sfd(n);
-	ll i,a[n];
-	for(i=0;i<n;i++)
-		sfd(a[i]);
-	maketree(a,n,0);
+	ll t;
+	cin>>t;
+	while(t--){
+	}
 }

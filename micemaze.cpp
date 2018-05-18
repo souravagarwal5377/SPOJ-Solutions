@@ -4,6 +4,9 @@
 #define sfc(x) scanf("%c",&x)
 #define pf printf
 using namespace std;
+void dfs(){
+    if(vis)
+}
 int main()
 {
     #ifndef ONLINE_JUDGE
@@ -12,8 +15,14 @@ int main()
     #endif
     ll int t;   
     scanf("%lld",&t);
-    while(t--)
-    {
-     	   
-    } 
+    ll n,e,t,m,i;
+    sfd(n);sfd(e);sfd(t);sfd(m);
+    vector<pair<ll,ll> > v[n+1];
+    for(i=0;i<m;i++){
+        ll x,y,w;
+        sfd(x);sfd(y);sfd(w);
+        v[x].push_back(make_pair(y,w));
+    }
+    ll s=0,j;
+        
 }
