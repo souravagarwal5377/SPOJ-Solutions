@@ -33,6 +33,21 @@ ll toint(string s){
 	//cout<<n<<endl;
 	return n;
 }
+ll dectobin(ll n){
+	stack<ll> s;
+	while(n>=2){
+		ll x=n%2;
+		s.push(x);
+		n=n/2;
+	}
+	s.push(n);
+	ll ans=0;
+	while(!s.empty()){
+		ans=ans*10+s.top();
+		s.pop();
+	}
+	return ans;
+}
 ll reverse(ll n){    /*returns the reverse of number n*/
 	ll i,r=0;
 	while(n>0){
@@ -62,6 +77,10 @@ string tostring(ll n){
 	//cout<<s<<endl;
 	return s;
 }
+ll mx[4]={-1,1,0,0};
+ll my[4]={0,0,-1,1};
+//ll mx[8]={-1,1,0,0,-1,-1,1,1};
+//ll my[8]={0,0,-1,1,-1,1,-1,1};
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);

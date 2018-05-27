@@ -33,21 +33,6 @@ ll toint(string s){
 	//cout<<n<<endl;
 	return n;
 }
-ll dectobin(ll n){
-	stack<ll> s;
-	while(n>=2){
-		ll x=n%2;
-		s.push(x);
-		n=n/2;
-	}
-	s.push(n);
-	ll ans=0;
-	while(!s.empty()){
-		ans=ans*10+s.top();
-		s.pop();
-	}
-	return ans;
-}
 ll reverse(ll n){    /*returns the reverse of number n*/
 	ll i,r=0;
 	while(n>0){
@@ -82,40 +67,30 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n,e,t,i,m;
-	cin>>n>>e>>t>>m;
-	vector<pair<ll,ll> > v[n+1];
-	for(i=0;i<m;i++){
-		ll x,y,z;
-		cin>>x>>y>>z;
-		v[x].pb(make_pair(z,y));
-	}
-	ll ans=0;
-	for(i=1;i<=n;i++){
-		if(i==e){
-			ans++;
-			continue;
+    ll x=1;
+	while(1){
+		ll n;
+		sfd(n);
+		if(n==0)
+			break;
+		ll dp[n][3],i,j;
+		for(i=0;i<n;i++){
+			for(j=0;j<3;j++)
+				sfd(dp[i][j]);
 		}
-		priority_queue<pair<ll,ll>,vector<pair<ll,ll> >, greater<pair<ll,ll> > > pq;
-		ll vis[n+1]={0};
-		ll d[n+1],j;
-		for(j=1;j<=n;j++)
-			d[j]=INT_MAX;
-		d[i]=0;
-		pq.push(make_pair(0,i));
-		while(!pq.empty()){
-			ll x=pq.top().second;
-			pq.pop();
-			vis[x]=1;
-			for(j=0;j<v[x].size();j++){
-				if(vis[v[x][j].second]==0&&d[v[x][j].second]>d[x]+v[x][j].first){
-					d[v[x][j].second]=d[x]+v[x][j].first;
-					pq.push(make_pair(d[v[x][j].second],v[x][j].second));
-				}
-			}
+		dp[1][1]=min(dp[1][1],min(dp[1][0]+dp[1][1],dp[0][2]+dp[1][1]));
+		dp[1][2]=min(dp[0][2]+dp[1][2],min(dp[1][1]+dp[1][2],dp[1][2]));
+		for(i=2;i<n;i++){
+			dp[i][0]=dp[i][0]+min(dp[i-1][0],dp[i-1][1]);
+			dp[i][1]=dp[i][1]+min(dp[i-1][0],min(dp[i-1][1],min(dp[i-1][2],dp[i][0])));
+			dp[i][2]=dp[i][2]+min(dp[i-1][2],min(dp[i-1][1],dp[i][1]));
 		}
-		if(d[e]<=t)
-			ans++;
+		// for(i=0;i<n;i++){
+		// 	for(j=0;j<3;j++)
+		// 		cout<<dp[i][j]<<" ";
+		// 	cout<<endl;
+		// }
+		cout<<x<<". "<<dp[n-1][1]+dp[0][1]<<endl;
+		x++;
 	}
-	cout<<ans<<endl;
 }

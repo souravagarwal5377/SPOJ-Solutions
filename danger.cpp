@@ -33,21 +33,6 @@ ll toint(string s){
 	//cout<<n<<endl;
 	return n;
 }
-ll dectobin(ll n){
-	stack<ll> s;
-	while(n>=2){
-		ll x=n%2;
-		s.push(x);
-		n=n/2;
-	}
-	s.push(n);
-	ll ans=0;
-	while(!s.empty()){
-		ans=ans*10+s.top();
-		s.pop();
-	}
-	return ans;
-}
 ll reverse(ll n){    /*returns the reverse of number n*/
 	ll i,r=0;
 	while(n>0){
@@ -77,45 +62,37 @@ string tostring(ll n){
 	//cout<<s<<endl;
 	return s;
 }
+ll func(ll x){
+	ll i=1;
+	while(i<x){
+		i=i*2;
+	}
+	if(i>x)
+		i/=2;
+	return i;
+}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n,e,t,i,m;
-	cin>>n>>e>>t>>m;
-	vector<pair<ll,ll> > v[n+1];
-	for(i=0;i<m;i++){
-		ll x,y,z;
-		cin>>x>>y>>z;
-		v[x].pb(make_pair(z,y));
+	while(1){
+		string s;
+		cin>>s;
+		if(s=="00e0")
+			break;
+		string a,b;
+		a=a+s[0]+s[1];
+		b=s[3];
+		ll n=toint(a);
+		ll y=toint(b);
+		ll i;
+		for(i=0;i<y;i++)
+			n=n*10;
+		//cout<<n<<endl;
+		ll cc=func(n);
+		cc=n-cc;
+		ll ans=2*cc+1;
+		cout<<ans<<endl;
 	}
-	ll ans=0;
-	for(i=1;i<=n;i++){
-		if(i==e){
-			ans++;
-			continue;
-		}
-		priority_queue<pair<ll,ll>,vector<pair<ll,ll> >, greater<pair<ll,ll> > > pq;
-		ll vis[n+1]={0};
-		ll d[n+1],j;
-		for(j=1;j<=n;j++)
-			d[j]=INT_MAX;
-		d[i]=0;
-		pq.push(make_pair(0,i));
-		while(!pq.empty()){
-			ll x=pq.top().second;
-			pq.pop();
-			vis[x]=1;
-			for(j=0;j<v[x].size();j++){
-				if(vis[v[x][j].second]==0&&d[v[x][j].second]>d[x]+v[x][j].first){
-					d[v[x][j].second]=d[x]+v[x][j].first;
-					pq.push(make_pair(d[v[x][j].second],v[x][j].second));
-				}
-			}
-		}
-		if(d[e]<=t)
-			ans++;
-	}
-	cout<<ans<<endl;
 }

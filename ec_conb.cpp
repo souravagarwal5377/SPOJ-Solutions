@@ -8,6 +8,23 @@
 #define pb push_back
 #define inf INT_MAX;
 using namespace std;
+ll func(ll n){
+	vector<ll> v;
+	while(n>1){
+		ll x=n%2;
+		n/=2;
+		v.pb(x);
+	}
+	v.pb(n);
+	reverse(v.begin(),v.end());
+	ll ans=0,x=1,i;
+	for(i=0;i<v.size();i++){
+		if(v[i]==1)
+			ans=ans+x;
+		x=x*2;
+	}
+	return ans;
+}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
@@ -15,25 +32,13 @@ int main(){
     #endif 
 	ll n;
 	sfd(n);
-	ll i,x;
-	vector<ll> v;
-	ll m=n/2;
-	for(i=0;i<m;i++){
+	ll i;
+	for(i=0;i<n;i++){
+		ll x;
 		sfd(x);
-		v.push_back(x);
+		if(x%2==0)
+			cout<<func(x)<<endl;
+		else
+			cout<<x<<endl;
 	}
-	sort(v.begin(),v.end());
-	ll a=0,b=0;
-	x=n-1;
-	for(i=v.size()-1;i>=0&&x>0;i--){
-		b=b+abs(v[i]-x);
-		x-=2;
-	}
-	x=n;
-	for(i=v.size()-1;i>=0&&x>0;i--){
-		a=a+abs(v[i]-x);
-		x-=2;
-	}
-	ll ans=min(a,b);
-	cout<<ans<<endl;
 }

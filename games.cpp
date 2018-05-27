@@ -77,45 +77,25 @@ string tostring(ll n){
 	//cout<<s<<endl;
 	return s;
 }
+ll gcd(ll a,ll b)
+{
+ return b==0?a:gcd(b,a%b);
+}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n,e,t,i,m;
-	cin>>n>>e>>t>>m;
-	vector<pair<ll,ll> > v[n+1];
-	for(i=0;i<m;i++){
-		ll x,y,z;
-		cin>>x>>y>>z;
-		v[x].pb(make_pair(z,y));
+	ll t;
+	cin>>t;
+	while(t--){
+		double n;
+		cin>>n;
+		n=n*100000000.0;
+		ll num=(ll)n;
+		ll den=100000000.0;
+		ll g=gcd(num,den);
+		den=den/g;
+		cout<<den<<endl;
 	}
-	ll ans=0;
-	for(i=1;i<=n;i++){
-		if(i==e){
-			ans++;
-			continue;
-		}
-		priority_queue<pair<ll,ll>,vector<pair<ll,ll> >, greater<pair<ll,ll> > > pq;
-		ll vis[n+1]={0};
-		ll d[n+1],j;
-		for(j=1;j<=n;j++)
-			d[j]=INT_MAX;
-		d[i]=0;
-		pq.push(make_pair(0,i));
-		while(!pq.empty()){
-			ll x=pq.top().second;
-			pq.pop();
-			vis[x]=1;
-			for(j=0;j<v[x].size();j++){
-				if(vis[v[x][j].second]==0&&d[v[x][j].second]>d[x]+v[x][j].first){
-					d[v[x][j].second]=d[x]+v[x][j].first;
-					pq.push(make_pair(d[v[x][j].second],v[x][j].second));
-				}
-			}
-		}
-		if(d[e]<=t)
-			ans++;
-	}
-	cout<<ans<<endl;
 }

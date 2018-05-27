@@ -13,27 +13,22 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n;
-	sfd(n);
-	ll i,x;
-	vector<ll> v;
-	ll m=n/2;
-	for(i=0;i<m;i++){
-		sfd(x);
-		v.push_back(x);
+	ll t;
+	cin>>t;
+	while(t--){
+		ll p,m;
+		cin>>p>>m;
+		ll i,a[p];
+		for(i=0;i<p;i++)
+			cin>>a[i];
+		for(i=0;i<n&&s<m;i++){
+			s+=a[i];
+		}
+		c=i;
+		if(s>m){
+			s=s-a[i-1];
+			c--;
+		}
+		for()
 	}
-	sort(v.begin(),v.end());
-	ll a=0,b=0;
-	x=n-1;
-	for(i=v.size()-1;i>=0&&x>0;i--){
-		b=b+abs(v[i]-x);
-		x-=2;
-	}
-	x=n;
-	for(i=v.size()-1;i>=0&&x>0;i--){
-		a=a+abs(v[i]-x);
-		x-=2;
-	}
-	ll ans=min(a,b);
-	cout<<ans<<endl;
 }

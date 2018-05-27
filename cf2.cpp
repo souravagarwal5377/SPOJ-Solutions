@@ -13,15 +13,36 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n;
-	sfd(n);
-	n++;
-	if(n==1){
-		cout<<"0\n";
-		return 0;
+	ll s,l;
+	cin>>s>>l;
+	string v[s];
+	ll i,j;
+	for(i=0;i<s;i++)
+		cin>>v[i];
+	ll c[l]={0};
+	for(j=0;j<l;j++){
+		for(i=0;i<s;i++){
+			if(v[i][j]=='1')
+				c[j]++;
+		}
 	}
-	if(n%2==0)
-		cout<<n/2<<endl;
+	for(i=0;i<l;i++)
+		cout<<c[i]<<endl;
+	for(i=0;i<s;i++){
+		ll imp=0;
+		for(j=0;j<l;j++){
+			if(v[i][j]=='1'){
+				if(c[j]==1){
+					imp=1;
+					break;
+				}
+			}
+		}
+		if(imp==0)
+			break;
+	}
+	if(i==s)
+		cout<<"NO\n";
 	else
-		cout<<n<<endl;
+		cout<<"YES\n";
 }
