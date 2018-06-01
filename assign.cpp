@@ -81,23 +81,47 @@ ll mx[4]={-1,1,0,0};
 ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};
 //ll my[8]={0,0,-1,1,-1,1,-1,1};
+ll dp[2000000];
+ll pow(ll a,ll b){
+	ll x=1;
+	while(b--){
+		x=a*x;
+	}
+	return x;
+}
+ll count(ll n){
+	ll c=0;
+	while(n){
+		if(n%2!=0)
+			c++;
+		n/=2;
+	}
+	return c;
+}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll x,y;
-	cin>>x>>y;
-	if(x==y){
-		cout<<"=\n";
-		return 0;
-	}
-	double a=(double)y*log(x);
-	double b=(double)x*log(y);
-	if(a-b>0)
-		cout<<">\n";
-	else if(a-b<0)
-		cout<<"<\n";
-	else
-		cout<<"=\n";
+    cout<<count(9)<<endl;
+	/*ll t;
+	cin>>t;
+	while(t--){
+		ll n;
+		ll i,j,a[21][21];
+		for(i=1;i<=n;i++){
+			for(j=1;j<=n;j++)
+				sfd(a[i][j]);
+		}
+		memset(dp,1500000,-1);
+		ll mm=pow(2,n);
+		for(i=0;i<mm;i++){
+			ll x=count(i);
+			for(j=1;j<=n;j++){
+				if(a[j][i]==1){
+					dp[i|1<<j]
+				}
+			}
+		}
+	}*/
 }

@@ -86,18 +86,26 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll x,y;
-	cin>>x>>y;
-	if(x==y){
-		cout<<"=\n";
-		return 0;
-	}
-	double a=(double)y*log(x);
-	double b=(double)x*log(y);
-	if(a-b>0)
-		cout<<">\n";
-	else if(a-b<0)
-		cout<<"<\n";
-	else
-		cout<<"=\n";
+    ll n,m,k,s,i;
+    cin>>n>>m>>k>>s;
+    ll g[n+1];
+    for(i=1;i<=n;i++)
+    	sfd(g[i]);
+    vector<ll> v[n+1];
+    for(i=0;i<m;i++){
+    	cin>>x>>y;
+    	v[x].pb(y);
+    	v[y].pb(x);
+    }
+    vector<ll>cost;
+    for(i=1;i<=n;i++){
+    	ll d=0;
+    	for(ll j=1;j<=k;j++){
+    		if(j==g[i]){
+    			v.pb(0)
+    		}
+    		queue<ll> q;
+    		q.push(i);
+    	}
+    }
 }

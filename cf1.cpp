@@ -13,27 +13,42 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
+	map<string,string> m;
+	m["purple"]="Power";
+	m["green"]="Time";
+	m["blue"]="Space";
+	m["orange"]="Soul";
+	m["red"]="Reality";
+	m["yellow"]="Mind";
 	ll n;
-	sfd(n);
-	ll i,x;
-	vector<ll> v;
-	ll m=n/2;
-	for(i=0;i<m;i++){
-		sfd(x);
-		v.push_back(x);
+	cin>>n;
+	map<string,ll> c;
+	c["purple"]=0;
+	c["green"]=0;
+	c["blue"]=0;
+	c["orange"]=0;
+	c["red"]=0;
+	c["yellow"]=0;
+	vector<string> v;
+	v.pb("purple");
+	v.pb("green");
+	v.pb("blue");
+	v.pb("orange");
+	v.pb("red");
+	v.pb("yellow");
+	if(n==6)
+		cout<<"0\n";
+	else{
+		cout<<6-n<<endl;
+		for(ll i=0;i<n;i++){
+			string hh;
+			v.pb(hh);
+			cin>>hh;
+			c[hh]=1;
+		}
+		for(ll i=0;i<6;i++){
+			if(c[v[i]]==0)
+				cout<<m[v[i]]<<endl;
+		}
 	}
-	sort(v.begin(),v.end());
-	ll a=0,b=0;
-	x=n-1;
-	for(i=v.size()-1;i>=0&&x>0;i--){
-		b=b+abs(v[i]-x);
-		x-=2;
-	}
-	x=n;
-	for(i=v.size()-1;i>=0&&x>0;i--){
-		a=a+abs(v[i]-x);
-		x-=2;
-	}
-	ll ans=min(a,b);
-	cout<<ans<<endl;
 }

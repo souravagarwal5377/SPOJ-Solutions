@@ -86,18 +86,28 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll x,y;
-	cin>>x>>y;
-	if(x==y){
-		cout<<"=\n";
-		return 0;
+	ll n,k;
+	cin>>n>>k;
+	ll i,a[n],l=0,u=INT_MIN;
+	for(i=0;i<n;i++){
+		cin>>a[i];
+		u=max(a[i],u);
 	}
-	double a=(double)y*log(x);
-	double b=(double)x*log(y);
-	if(a-b>0)
-		cout<<">\n";
-	else if(a-b<0)
-		cout<<"<\n";
-	else
-		cout<<"=\n";
+	ll ans=0;
+	while(l<=u){
+		ll m=l+(u-l)/2;
+		ll x=0;
+		for(i=0;i<n;i++){
+			if(a[i]>m){
+				x=x+a[i]-m;
+			}
+		}
+		if(x>=k){
+			ans=m;
+			l=m+1;
+		}
+		else
+			u=m-1;
+	}
+	cout<<ans<<endl;
 }
