@@ -78,64 +78,73 @@ string tostring(ll n){
 	return s;
 }
 ll mx[4]={-1,1,0,0};
-//ll my[4]={0,0,-1,1};
+ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};
 //ll my[8]={0,0,-1,1,-1,1,-1,1};
-bool my(string l,string r){
-	return l.length()<r.length();
-}
-ll check(string a,string b){
-	ll i,j;
-	for(i=0;i<b.length();i++){
-		if(b[i]==a[0]){
-			ll t=i,u=0;
-			while(t<b.length()&&u<a.length()&&a[u]==b[t]){
-				t++;
-				u++;
-			}
-			if(u==a.length())
-				return 1;
+ll ans;
+void merge(ll a[],ll l,ll m,ll u){
+	ll x=m-l+1,y=u-m;
+	ll left[x],right[y];
+	ll i,j=0;
+	for(i=l;i<=m;i++){
+		left[j++]=a[i];
+	}
+	j=0;
+	for(i=m+1;i<=u;i++){
+		right[j++]=a[i];
+	}
+	ll k=0;
+	i=l,j=0;
+	while(j<x&&k<y){
+		if(left[j]<=right[k])
+			a[i++]=left[j++];
+		else{
+			ans=ans+(x-1-j+1);
+			a[i++]=right[k++];
 		}
 	}
-	return 0;
+	while(j<x)
+		a[i++]=left[j++];
+	while(k<y)
+		a[i++]=right[k++];
+}
+void cnt(ll a[],ll l,ll u){
+	if(l>=u)
+		return;
+	ll m=l+(u-l)/2;
+	cnt(a,l,m);
+	cnt(a,m+1,u);
+	merge(a,l,m,u);
 }
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n;
-	sfd(n);
-	vector<string> v;
-	ll i;
-	for(i=0;i<n;i++){
-		string h;
-		cin>>h;
-		v.pb(h);
-	}	
-	if(n==1){
-		cout<<"YES\n";
-		cout<<v[0]<<endl;
-		return 0;
-	}
-	sort(v.begin(),v.end(),my);
-	ll flag=0,j;
-	for(i=1;i<n;i++){
-		for(j=0;j<i;j++){
-			string a=v[j],b=v[i];
-			flag=check(a,b);
-			//cout<<i<<" "<<j<<" "<<flag<<endl;
-			if(flag==0)
-				break;
+	ll t;
+	cin>>t;
+	while(t--){
+		ll n;
+		map<string,ll> id;
+		vector<string> v;
+		sfd(n);
+		ll i;
+		for(i=0;i<n;i++){
+			string s;
+			cin>>s;
+			v.pb(s);
 		}
-		if(flag==0)
-			break;
+		for(i=0;i<n;i++){
+			string s;
+			cin>>s;
+			id[s]=i;
+		}
+		ll a[n];
+		for(i=0;i<n;i++){
+			a[i]=id[v[i]];
+		}
+		ans=0;
+		cnt(a,0,n-1);
+		cout<<ans<<endl;
 	}
-	if(flag==1){
-		cout<<"YES\n";
-		for(i=0;i<n;i++)
-			cout<<v[i]<<endl;
-	}
-	else
-		cout<<"NO\n";
 }

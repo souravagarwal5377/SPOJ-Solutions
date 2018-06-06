@@ -78,64 +78,23 @@ string tostring(ll n){
 	return s;
 }
 ll mx[4]={-1,1,0,0};
-//ll my[4]={0,0,-1,1};
+ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};
 //ll my[8]={0,0,-1,1,-1,1,-1,1};
-bool my(string l,string r){
-	return l.length()<r.length();
-}
-ll check(string a,string b){
-	ll i,j;
-	for(i=0;i<b.length();i++){
-		if(b[i]==a[0]){
-			ll t=i,u=0;
-			while(t<b.length()&&u<a.length()&&a[u]==b[t]){
-				t++;
-				u++;
-			}
-			if(u==a.length())
-				return 1;
-		}
-	}
-	return 0;
-}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n;
-	sfd(n);
-	vector<string> v;
-	ll i;
-	for(i=0;i<n;i++){
-		string h;
-		cin>>h;
-		v.pb(h);
-	}	
-	if(n==1){
-		cout<<"YES\n";
-		cout<<v[0]<<endl;
-		return 0;
+	ll a[21][21]={0};
+	ll i,j;
+	for(i=1;i<21;i++)
+		a[0][i]=1;
+	for(i=1;i<21;i++)
+		a[i][0]=1;
+	for(i=1;i<21;i++){
+		for(j=1;j<21;j++)
+			a[i][j]=a[i-1][j]+a[i][j-1];
 	}
-	sort(v.begin(),v.end(),my);
-	ll flag=0,j;
-	for(i=1;i<n;i++){
-		for(j=0;j<i;j++){
-			string a=v[j],b=v[i];
-			flag=check(a,b);
-			//cout<<i<<" "<<j<<" "<<flag<<endl;
-			if(flag==0)
-				break;
-		}
-		if(flag==0)
-			break;
-	}
-	if(flag==1){
-		cout<<"YES\n";
-		for(i=0;i<n;i++)
-			cout<<v[i]<<endl;
-	}
-	else
-		cout<<"NO\n";
+	cout<<a[20][20]<<endl;
 }

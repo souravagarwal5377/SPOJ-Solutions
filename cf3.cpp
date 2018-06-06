@@ -86,32 +86,56 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n,i,j;
-	cin>>n;
-	ll a[n],c[n];
-	for(i=0;i<n;i++)
-		cin>>a[i];
-	for(i=0;i<n;i++)
-		cin>>c[i];
-	ll ans=1e16;
-	for(i=1;i<n-1;i++){
-		ll left=1e16;
-		ll right=1e16;
-		for(j=i-1;j>=0;j--){
-			if(a[j]<a[i])
-				left=min(left,c[j]);
+	ll k;
+	sfd(k);
+	ll i;
+	ll n[k];
+	vector<ll> v[k];
+	vector<ll> sum;
+	set<ll> chk;
+	ll val=1e17,j;
+	ll flagg=0;
+	for(i=0;i<k;i++){
+		sfd(n[i]);
+		ll s=0;
+		for(j=0;j<n[i];j++){
+			ll x;
+			sfd(x);
+			s+=x;
+			v[i].pb(x);
 		}
-		for(j=i+1;j<n;j++){
-			if(a[j]>a[i])
-				right=min(right,c[j]);
+		sum.pb(s);
+		set<ll> temp;
+		for(j=0;j<n[i];j++){
+			temp.insert(s-v[i][j]);
 		}
-		if(left==1e16||right==1e16)
-			continue;
-		ans=min(ans,left+c[i]+right);
+		set<ll> ::iterator it;
+		for(it=temp.begin();it!=temp.end();it++){
+			ll xx=(*it);
+			if(flagg==0&&chk.find(xx)!=chk.end()){
+				val=xx;
+				flagg=1;
+			}
+			else
+				chk.insert(xx);
+		}
 	}
-	if(ans==1e16)
-		cout<<"-1\n";
-	else
-		cout<<ans<<endl;
-
+	if(val==1e17){
+		cout<<"NO\n";
+		return 0;
+	}
+	cout<<"YES\n";
+	ll cc=0,flag=0;
+	for(i=0;i<k;i++){
+		flag=0;
+		for(j=0;j<n[i];j++){
+			if(sum[i]-v[i][j]==val){
+				cc++;
+				flag=1;
+				break;
+			}
+		}
+		if(cc>0&&cc<=2&&flag==1)
+			cout<<i+1<<" "<<j+1<<endl;
+	}
 }

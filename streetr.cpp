@@ -78,27 +78,9 @@ string tostring(ll n){
 	return s;
 }
 ll mx[4]={-1,1,0,0};
-//ll my[4]={0,0,-1,1};
+ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};
 //ll my[8]={0,0,-1,1,-1,1,-1,1};
-bool my(string l,string r){
-	return l.length()<r.length();
-}
-ll check(string a,string b){
-	ll i,j;
-	for(i=0;i<b.length();i++){
-		if(b[i]==a[0]){
-			ll t=i,u=0;
-			while(t<b.length()&&u<a.length()&&a[u]==b[t]){
-				t++;
-				u++;
-			}
-			if(u==a.length())
-				return 1;
-		}
-	}
-	return 0;
-}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
@@ -106,36 +88,21 @@ int main(){
     #endif 
 	ll n;
 	sfd(n);
-	vector<string> v;
-	ll i;
-	for(i=0;i<n;i++){
-		string h;
-		cin>>h;
-		v.pb(h);
-	}	
-	if(n==1){
-		cout<<"YES\n";
-		cout<<v[0]<<endl;
-		return 0;
+	ll i,a[n];
+	for(i=0;i<n;i++)
+		sfd(a[i]);
+	ll d[n-1];
+	for(i=1;i<n;i++)
+		d[i-1]=a[i]-a[i-1];
+	/*for(i=0;i<n-1;i++)
+		cout<<d[i]<<" ";
+	cout<<endl;*/
+	ll g=__gcd(d[0],d[1]);
+	for(i=2;i<n-1;i++)
+		g=__gcd(g,d[i]);
+	ll ans=0;
+	for(i=0;i<n-1;i++){
+		ans=ans+(d[i]/g-1);
 	}
-	sort(v.begin(),v.end(),my);
-	ll flag=0,j;
-	for(i=1;i<n;i++){
-		for(j=0;j<i;j++){
-			string a=v[j],b=v[i];
-			flag=check(a,b);
-			//cout<<i<<" "<<j<<" "<<flag<<endl;
-			if(flag==0)
-				break;
-		}
-		if(flag==0)
-			break;
-	}
-	if(flag==1){
-		cout<<"YES\n";
-		for(i=0;i<n;i++)
-			cout<<v[i]<<endl;
-	}
-	else
-		cout<<"NO\n";
+	cout<<ans<<endl;
 }

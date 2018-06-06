@@ -78,64 +78,50 @@ string tostring(ll n){
 	return s;
 }
 ll mx[4]={-1,1,0,0};
-//ll my[4]={0,0,-1,1};
+ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};
 //ll my[8]={0,0,-1,1,-1,1,-1,1};
-bool my(string l,string r){
-	return l.length()<r.length();
-}
-ll check(string a,string b){
-	ll i,j;
-	for(i=0;i<b.length();i++){
-		if(b[i]==a[0]){
-			ll t=i,u=0;
-			while(t<b.length()&&u<a.length()&&a[u]==b[t]){
-				t++;
-				u++;
-			}
-			if(u==a.length())
-				return 1;
-		}
-	}
-	return 0;
-}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll n;
-	sfd(n);
-	vector<string> v;
-	ll i;
-	for(i=0;i<n;i++){
-		string h;
-		cin>>h;
-		v.pb(h);
-	}	
-	if(n==1){
-		cout<<"YES\n";
-		cout<<v[0]<<endl;
-		return 0;
+	ll f,s,g,u,d;
+	cin>>f>>s>>g>>u>>d;
+	vector<ll> v[f+1];
+	for(i=1;i<=f;i++){
+		if(i+u<=f)
+			v[i].pb(i+u);
+		if(i-d>=1)
+			v[i].pb(i-d);
 	}
-	sort(v.begin(),v.end(),my);
-	ll flag=0,j;
-	for(i=1;i<n;i++){
-		for(j=0;j<i;j++){
-			string a=v[j],b=v[i];
-			flag=check(a,b);
-			//cout<<i<<" "<<j<<" "<<flag<<endl;
-			if(flag==0)
-				break;
+	queue<ll> q;
+	q.push(s);
+	ll vis[f+1]={0};
+	vis[s]=1;
+	ll par[f+1]={0};
+	while(!q.empty()){
+		ll t=q.front();
+		q.pop();
+		for(i=0;i<v[t].size();i++){
+			if(vis[v[t][i]]==0){
+				vis[v[t][i]]=1;
+				par[v[t][i]]=t;
+				q.push(v[t][i]);
+			}
 		}
-		if(flag==0)
-			break;
 	}
-	if(flag==1){
-		cout<<"YES\n";
-		for(i=0;i<n;i++)
-			cout<<v[i]<<endl;
+	if(vis[g]==0){
+		cout<<"use the stairs"<<endl;
 	}
-	else
-		cout<<"NO\n";
+	else{
+		stack<ll> st;
+		ll p=par[g];
+		st.push(g);
+		while(p!=0){
+			st.push(p);
+			p=par[p];
+		}
+		cout<<st.size()<<endl;
+	}
 }

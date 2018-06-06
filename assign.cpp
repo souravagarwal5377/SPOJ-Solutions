@@ -103,8 +103,8 @@ int main(){
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-    cout<<count(9)<<endl;
-	/*ll t;
+    //cout<<count(9)<<endl;
+	ll t;
 	cin>>t;
 	while(t--){
 		ll n;
@@ -116,12 +116,17 @@ int main(){
 		memset(dp,1500000,-1);
 		ll mm=pow(2,n);
 		for(i=0;i<mm;i++){
-			ll x=count(i);
+			ll x=count(i),y=i;
 			for(j=1;j<=n;j++){
-				if(a[j][i]==1){
-					dp[i|1<<j]
+				if(y%2==0){
+					
+					for(k=1;k<=n;k++){
+						if(a[k][j]==1){
+							dp[i]
+						}
+					}
 				}
 			}
 		}
-	}*/
+	}
 }

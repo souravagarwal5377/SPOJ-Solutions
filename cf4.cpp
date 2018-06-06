@@ -87,29 +87,35 @@ int main(){
         freopen("output.txt","w",stdout);
     #endif 
 	ll n;
-	cin>>n;
+	sfd(n);
 	ll i,a[n];
-	for(i=0;i<n;i++)
-		sfd(a[i]);
-	ll c=0;
+	set<ll> s;
 	for(i=0;i<n;i++){
-		while(a[i]!=i+1){
-			ll temp=a[i];
-			a[i]=a[temp-1];
-			a[temp-1]=temp;
-			c++;
+		sfd(a[i]);
+		s.insert(a[i]);
+	}
+	sort(a,a+n);
+	//cout<<a[0]<<endl<<a[1]<<endl;
+	for(i=1;i<=1e9;i*=2){
+		for(ll j=0;j<n;j++){
+			if(s.find(a[j]-i)!=s.end()&&s.find(a[j]+i)!=s.end()){
+				cout<<"3\n"<<a[j]<<" "<<a[j]-i<<" "<<a[j]+i<<endl;
+				return 0;
+			}
 		}
 	}
-	if(n%2==0){
-		if(c%2==0)
-			cout<<"Petr\n";
-		else
-			cout<<"Um_nik\n";
+	for(i=1;i<=1e10;i*=2){
+		for(ll j=0;j<n;j++){
+			if(s.find(a[j]-i)!=s.end()){
+				cout<<"2\n"<<a[j]<<" "<<a[j]-i<<endl;
+				return 0;
+			}
+			//cout<<a[j]+i<<endl;
+			if(s.find(a[j]+i)!=s.end()){
+				cout<<"2\n"<<a[j]<<" "<<a[j]+i<<endl;
+				return 0;
+			}
+		}
 	}
-	else{
-		if(c%2==0)
-			cout<<"Um_nik\n";
-		else
-			cout<<"Petr\n";
-	}
+	cout<<"1\n"<<a[0]<<endl;
 }
