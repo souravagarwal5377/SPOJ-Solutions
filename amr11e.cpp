@@ -105,6 +105,12 @@ int main(){
         freopen("output.txt","w",stdout);
     #endif 
 	func();
-	cout<<v.size()<<endl;
-	cout<<v[0]<<endl<<v[1]<<endl;
+	ll t;
+	cin>>t;
+	while(t--){
+		ll n;
+		sfd(n);
+		n--;
+		cout<<v[n]<<endl;
+	}
 }

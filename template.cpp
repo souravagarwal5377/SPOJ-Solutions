@@ -65,18 +65,6 @@ ll countinfactn(ll n,ll i){   /*returns the number of times a prime number*/
 	}
 	return c;
 }
-string tostring(ll n){
-	ll x,p=0;
-	string s;
-	while(n>0){
-		ll d=n%10;
-		s=s+(char)(d+48);
-		n/=10;
-	}
-	reverse(s.begin(),s.end());
-	//cout<<s<<endl;
-	return s;
-}
 ll mx[4]={-1,1,0,0};
 ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};

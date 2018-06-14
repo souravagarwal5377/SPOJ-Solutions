@@ -8,134 +8,126 @@
 #define pb push_back
 #define inf INT_MAX;
 using namespace std;
-/*
-inline void sfd(int &x)
-{
-    register int c = getchar_unlocked();
-    x = 0;
-    int neg = 0;
-    for(; ((c<48 || c>57) && c != '-'); c = getchar_unlocked());
-    if(c=='-') {
-        neg = 1;
-        c = getchar_unlocked();
-    }
-    for(; c>47 && c<58 ; c = getchar_unlocked()) {
-        x = (x<<1) + (x<<3) + c - 48;
-    }
-    if(neg)
-        x = -x;
-}*/
-ll toint(string s){
-	ll n=0,i;
-	for(i=0;i<s.length();i++){
-		n=n*10+((ll)(s[i])-48);
-	}
-	//cout<<n<<endl;
-	return n;
-}
-ll dectobin(ll n){
-	stack<ll> s;
-	while(n>=2){
-		ll x=n%2;
-		s.push(x);
-		n=n/2;
-	}
-	s.push(n);
-	ll ans=0;
-	while(!s.empty()){
-		ans=ans*10+s.top();
-		s.pop();
-	}
-	return ans;
-}
-ll reverse(ll n){    /*returns the reverse of number n*/
-	ll i,r=0;
-	while(n>0){
-		i=n%10;
-		r=r*10+i;
-		n/=10;
-	}
-	return r;
-}
-ll countinfactn(ll n,ll i){   /*returns the number of times a prime number*/
-	ll c=0,k=i;					/* i appears in n!*/
-	while(i<=n){
-		c=c+(n/i);
-		i=i*k;
-	}
-	return c;
-}
-string tostring(ll n){
-	ll x,p=0;
-	string s;
-	while(n>0){
-		ll d=n%10;
-		s=s+(char)(d+48);
-		n/=10;
-	}
-	reverse(s.begin(),s.end());
-	//cout<<s<<endl;
-	return s;
-}
-ll mx[4]={-1,1,0,0};
-ll my[4]={0,0,-1,1};
-//ll mx[8]={-1,1,0,0,-1,-1,1,1};
-//ll my[8]={0,0,-1,1,-1,1,-1,1};
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif 
-	ll k;
-	sfd(k);
-	ll i;
-	ll n[k];
-	vector<ll> v[k];
-	vector<ll> sum;
-	set<ll> chk;
-	ll val=1e17,j;
-	ll flagg=0;
-	for(i=0;i<k;i++){
-		sfd(n[i]);
-		ll s=0;
-		for(j=0;j<n[i];j++){
-			ll x;
-			sfd(x);
-			s+=x;
-			v[i].pb(x);
-		}
-		sum.pb(s);
-		set<ll> temp;
-		for(j=0;j<n[i];j++){
-			temp.insert(s-v[i][j]);
-		}
-		set<ll> ::iterator it;
-		for(it=temp.begin();it!=temp.end();it++){
-			ll xx=(*it);
-			if(flagg==0&&chk.find(xx)!=chk.end()){
-				val=xx;
-				flagg=1;
-			}
-			else
-				chk.insert(xx);
-		}
-	}
-	if(val==1e17){
-		cout<<"NO\n";
-		return 0;
-	}
-	cout<<"YES\n";
-	ll cc=0,flag=0;
-	for(i=0;i<k;i++){
-		flag=0;
-		for(j=0;j<n[i];j++){
-			if(sum[i]-v[i][j]==val){
-				cc++;
-				flag=1;
-				break;
+    pair<int,char> p[4];
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    p[0]=make_pair(a,'A');
+    p[1]=make_pair(b,'B');
+    p[2]=make_pair(c,'C');
+    p[3]=make_pair(d,'D');
+    sort(p,p+4);
+    if(a+b+c+d<=50){
+    	ll i;
+    	cout<<"1 "<<a+b+c+d<<endl;
+    	for(i=0;i<4;i++){
+    		for(ll j=0;j<p[i].first;j++)
+    			cout<<p[i].second;
+    	}
+    	cout<<endl;
+    	return 0;
+    }
+    ll x=(a+b+c+d)/50;
+    if((a+b+c+d)%50!=0)
+    	x++;
+    ll i,j;
+    ll row=0,col=0;
+    char mat[101][101];
+    cout<<x<<" "<<"50\n";
+    int cnt=0;
+    for(i=0;i<4;i++){
+		for(j=0;j<p[i].first;j++){
+			mat[row][col]=p[i].second;
+			cnt++;
+			col++;
+			if(cnt==50){
+				mat[row][col]='\0';
+				row++;
+				cnt=0;
+				col=0;
 			}
 		}
-		if(cc>0&&cc<=2&&flag==1)
-			cout<<i+1<<" "<<j+1<<endl;
-	}
+    }
+    while(cnt<50){
+    	if(mat[row-1][col]=='A'){
+    		if(mat[row][col-1]=='B'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='C'){
+    			mat[row][col++]='D';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='A'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		} 
+    		else if(mat[row][col-1]=='D'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		}
+    	}
+    	else if(mat[row-1][col]=='B'){
+    		if(mat[row][col-1]=='B'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='C'){
+    			mat[row][col++]='D';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='A'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		} 
+    		else if(mat[row][col-1]=='D'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		}
+    	}
+    	else if(mat[row-1][col]=='C'){
+    		if(mat[row][col-1]=='B'){
+    			mat[row][col++]='A';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='C'){
+    			mat[row][col++]='D';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='A'){
+    			mat[row][col++]='B';
+    			cnt++;
+    		} 
+    		else if(mat[row][col-1]=='D'){
+    			mat[row][col++]='B';
+    			cnt++;
+    		}
+    	}
+    	else if(mat[row-1][col]=='D'){
+    		if(mat[row][col-1]=='B'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='C'){
+    			mat[row][col++]='A';
+    			cnt++;
+    		}
+    		else if(mat[row][col-1]=='A'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		} 
+    		else if(mat[row][col-1]=='D'){
+    			mat[row][col++]='C';
+    			cnt++;
+    		}
+    	} 
+    }
+    mat[row][col]='\0';
+    for(i=0;i<x;i++)
+    	cout<<mat[i]<<endl;
+    cout<<endl;
 }

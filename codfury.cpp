@@ -16,19 +16,38 @@ int main(){
 	ll t;
 	cin>>t;
 	while(t--){
-		ll p,m;
-		cin>>p>>m;
-		ll i,a[p];
-		for(i=0;i<p;i++)
-			cin>>a[i];
-		for(i=0;i<n&&s<m;i++){
-			s+=a[i];
+		ll n,k;
+		cin>>n>>k;
+		ll i,a[n];
+		for(i=0;i<n;i++)
+			sfd(a[i]);
+		ll ans=0,mc=0,s=0,c=0,sp=0;
+		for(i=0;i<n;i++){
+			if(a[i]+s<=k){
+				if(s==0)
+					sp=i;
+				s+=a[i];
+				c++;
+				if(c>mc||(c==mc&&s<ans)){
+					ans=s;
+					mc=c;
+				}
+			}
+			else{
+				s+=a[i];
+				c++;
+				while(sp<=i &&s>k){
+					c--;
+					s-=a[sp];
+					sp++;
+				}
+				if(c>mc||(c==mc&&s<ans)){
+					ans=s;
+					mc=c;
+				}
+				//cout<<s<<" "<<c<<endl;
+			}
 		}
-		c=i;
-		if(s>m){
-			s=s-a[i-1];
-			c--;
-		}
-		for()
+		cout<<ans<<" "<<mc<<endl;
 	}
 }

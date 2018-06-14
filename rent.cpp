@@ -65,10 +65,45 @@ ll countinfactn(ll n,ll i){   /*returns the number of times a prime number*/
 	}
 	return c;
 }
+string tostring(ll n){
+	ll x,p=0;
+	string s;
+	while(n>0){
+		ll d=n%10;
+		s=s+(char)(d+48);
+		n/=10;
+	}
+	reverse(s.begin(),s.end());
+	//cout<<s<<endl;
+	return s;
+}
 ll mx[4]={-1,1,0,0};
-ll my[4]={0,0,-1,1};
+//ll my[4]={0,0,-1,1};
 //ll mx[8]={-1,1,0,0,-1,-1,1,1};
 //ll my[8]={0,0,-1,1,-1,1,-1,1};
+struct order{
+	ll s;
+	ll e;
+	ll p;
+};
+bool my(order left,order right){
+	if(left.e==right.e)
+		return left.s<right.s;
+	return left.e<right.e;
+}
+ll func(order a[],ll x){
+	ll l=0,u=x-1,m,ans=-1;
+	while(l<=u){
+		m=l+(u-l)/2;
+		if(a[m].e<=a[x].s){
+			ans=m;
+			l=m+1;
+		}
+		else
+			u=m-1;
+	}
+	return ans;
+}
 int main(){
 	#ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
@@ -77,46 +112,24 @@ int main(){
 	ll t;
 	cin>>t;
 	while(t--){
-		ll x,k,n,j;
-		cin>>x>>k;
-		n=2*x;
-		ll i,a[k];
-		for(i=0;i<k;i++){
-			sfd(a[i]);
-			a[i]--;
+		ll n,i;
+		sfd(n);
+		order a[n];
+		for(i=0;i<n;i++){
+			cin>>a[i].s>>a[i].e>>a[i].p;
+			a[i].e+=a[i].s;
 		}
-		if(x==1){
-			if(k>1||(k==1&&a[0]==1))
-				cout<<"0\n";
-			else
-				cout<<"1\n";
-			continue;
-		}
-		ll dp[122][122]={0};
-		k=0;
-		for(i=0;i<=x;i++)
-			dp[0][i]=0;
-		dp[0][1]=1;
-		if(a[0]==0)
-			k++;
+		sort(a,a+n,my);
+		ll dp[n];
+		dp[0]=a[0].p;
 		for(i=1;i<n;i++){
-			for(j=1;j<x;j++){
-				if(i==a[k]){
-					dp[i][j]=dp[i-1][j-1];
-				}
-				else
-					dp[i][j]=dp[i-1][j-1]+dp[i-1][j+1];
-			}
-			if(i==a[k]){
-				dp[i][0]=0;
-				dp[i][x]=dp[i-1][x-1];
-				k++;
-			}
-			else{
-				dp[i][0]=dp[i-1][1];
-				dp[i][x]=dp[i-1][x-1];
-			}
+			ll x=func(a,i);
+			if(x==-1)
+				x=a[i].p;
+			else
+				x=dp[x]+a[i].p;
+			dp[i]=max(dp[i-1],x);
 		}
-		cout<<dp[n-1][0]<<endl;
+		cout<<dp[n-1];
 	}
 }
